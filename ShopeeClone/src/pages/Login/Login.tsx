@@ -1,42 +1,77 @@
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useForm } from 'react-hook-form'
+import { useMutation } from 'react-query'
 import { Link } from 'react-router-dom'
+import { login } from 'src/apis/auth.api'
+import Input from 'src/components/Input/Input'
+import { ResponseApi } from 'src/types/utils.type'
+import { Schema, schema } from 'src/utils/rules'
+import { isAxiosUnprocessableEntity } from 'src/utils/utils'
+
+type FormData = Omit<Schema, 'confirm_password'>
+const loginSchema = schema.omit(['confirm_password'])
 
 export default function Login() {
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors }
-  // } = useForm()
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setError,
+    formState: { errors }
+  } = useForm<FormData>({
+    resolver: yupResolver(loginSchema)
+  })
 
-  // const onSubmit = handleSubmit((data) => {
-  //   console.log(data)
-  // })
+  const loginMutation = useMutation({
+    mutationFn: (body: Omit<FormData, 'confirm_password'>) => login(body)
+  })
+
+  const onSubmit = handleSubmit((data) => {
+    loginMutation.mutate(data, {
+      onSuccess: (data) => {
+        console.log(data)
+      },
+      onError: (error) => {
+        if (isAxiosUnprocessableEntity<ResponseApi<FormData>>(error)) {
+          const formError = error.response?.data.data
+          if (formError) {
+            Object.keys(formError).forEach((key) => {
+              setError(key as keyof FormData, {
+                message: formError[key as keyof FormData],
+                type: 'Server'
+              })
+            })
+          }
+        }
+      }
+    })
+  })
+
+  const value = watch()
+  console.log(value)
   return (
     <div className='bg-orange'>
       <div className='max-w-7xl mx-auto px-4'>
         <div className='grid grid-cols-1 py-12 lg:grid-cols-5 lg:py-32 lg:pr-10'>
           <div className='lg:col-span-2 lg:col-start-4'>
-            <form className='p-10 rounded-sm bg-white shadow-sm'>
+            <form className='p-10 rounded-sm bg-white shadow-sm' onSubmit={onSubmit}>
               <div className='text-2xl'>Đăng nhập</div>
-              <div className='mt-3'>
-                <input
-                  type='email'
-                  name='email'
-                  autoComplete='on'
-                  className='p-3 w-full outline-none border border-gray-300 focus:border-gray-500 focus:shadow-sm rounded-sm'
-                  placeholder='Email'
-                />
-                {/* <div className='mt-1 text-sm text-red-600 min-h-[1rem]'>Email không hợp lệ</div> */}
-              </div>
-              <div className='mt-3'>
-                <input
-                  type='password'
-                  name='password'
-                  autoComplete='on'
-                  className='p-3 w-full outline-none border border-gray-300 focus:border-gray-500 focus:shadow-sm rounded-sm'
-                  placeholder='Password'
-                />
-                {/* <div className='mt-1 text-sm text-red-600 min-h-[1rem]'>Password không hợp lệ</div> */}
-              </div>
+              <Input
+                name='email'
+                register={register}
+                type='email'
+                className='mt-8'
+                errorMessage={errors.email?.message}
+                placeholder='Email'
+              />
+              <Input
+                name='password'
+                register={register}
+                type='password'
+                className='mt-3'
+                errorMessage={errors.password?.message}
+                placeholder='Password'
+              />
               <div className='mt-3'>
                 <button
                   type='submit'
