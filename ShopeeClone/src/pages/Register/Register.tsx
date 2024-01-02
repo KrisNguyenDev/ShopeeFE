@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom'
 import Input from 'src/components/Input/Input'
 import { schema, Schema } from 'src/utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useMutation } from 'react-query'
 import { registerAccount } from 'src/apis/auth.api'
 import { omit } from 'lodash'
 import { isAxiosUnprocessableEntity } from 'src/utils/utils'
 import { ResponseApi } from 'src/types/utils.type'
+import { useMutation } from '@tanstack/react-query'
 
 type FormData = Schema
 

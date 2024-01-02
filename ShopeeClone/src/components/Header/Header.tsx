@@ -1,34 +1,23 @@
 import { Link } from 'react-router-dom'
-import { FloatingPortal, useFloating, FloatingArrow, arrow } from '@floating-ui/react'
-import { useRef, useState } from 'react'
+import Popover from '../Popover'
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(true)
-  const arrowRef = useRef(null)
-
-  const { refs, floatingStyles, context } = useFloating({
-    middleware: [
-      arrow({
-        element: arrowRef
-      })
-    ]
-  })
-
-  const showPopover = () => {
-    setIsOpen(true)
-  }
-  const hidePopover = () => {
-    setIsOpen(false)
-  }
   return (
     <div className='pb-5 pt-2 bg-[linear-gradient(-180deg,#f53d2d,#f63)]'>
       <div className='container'>
         <div className='flex justify-end'>
-          <div
-            className='flex items-center py-1 text-white hover:text-gray-300 cursor-pointer'
-            ref={refs.setReference}
-            onMouseEnter={showPopover}
-            onMouseLeave={hidePopover}
+          <Popover
+            className='flex items-center border-none text-white hover:text-gray-300'
+            renderPopover={
+              <>
+                <a href='/' className='hover:text-orange justify-start'>
+                  Tiếng Việt
+                </a>
+                <a href='/' className='hover:text-orange justify-start'>
+                  Tiếng Anh
+                </a>
+              </>
+            }
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -44,32 +33,32 @@ export default function Header() {
                 d='M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418'
               />
             </svg>
-            <span className='mx-1'>Tiếng Việt</span>
+            <span>Tiếng Việt</span>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
               viewBox='0 0 24 24'
               strokeWidth={1.5}
               stroke='currentColor'
-              className='w-5 h-5'
+              className='w-6 h-6'
             >
-              <path strokeLinecap='round' strokeLinejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5' />
+              <path strokeLinecap='round' strokeLinejoin='round' d='m19.5 8.25-7.5 7.5-7.5-7.5' />
             </svg>
-          </div>
-          <FloatingPortal>
-            {isOpen && (
-              <div ref={refs.setFloating} style={floatingStyles}>
-                <FloatingArrow ref={arrowRef} context={context} className='fill-white' />
-                <div className='bg-white relative shadow rounded-sm border border-gray-200'>
-                  <div className='flex flex-col py-2 px-3'>
-                    <button className='py-2 px-3 hover:text-orange'>Tiếng Việt</button>
-                    <button className='py-2 px-3 hover:text-orange mt-2'>Tiếng Anh</button>
-                  </div>
-                </div>
-              </div>
-            )}
-          </FloatingPortal>
-          <div className='flex items-center py-1 text-white hover:text-gray-300 cursor-pointer ml-6'>
+          </Popover>
+
+          <Popover
+            className='flex items-center border-none text-white hover:text-gray-300 ml-4'
+            renderPopover={
+              <>
+                <a href='/' className='hover:text-orange justify-start'>
+                  Tiếng Việt
+                </a>
+                <a href='/' className='hover:text-orange justify-start'>
+                  Tiếng Anh
+                </a>
+              </>
+            }
+          >
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
@@ -85,7 +74,7 @@ export default function Header() {
               />
             </svg>
             <span className='mx-1'>Mr. Kris</span>
-          </div>
+          </Popover>
         </div>
         <div className='grid grid-cols-12 gap-4 items-center'>
           <Link to='/' className='col-span-2'>
