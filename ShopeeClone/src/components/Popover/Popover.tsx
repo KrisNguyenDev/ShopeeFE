@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function Popover({ children, renderPopover, className }: Props) {
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
 
   const showPopover = () => {
     setIsOpen(true)
@@ -30,7 +30,7 @@ export default function Popover({ children, renderPopover, className }: Props) {
             transition={{ duration: 0.2 }}
           >
             <Pop.Panel className='absolute z-10'>
-              <div className='flex flex-col space-y-2 px-1 py-2 w-36 bg-white items-center rounded-md'>
+              <div className='flex flex-col space-y-2 px-1 py-2 w-52 bg-white items-center rounded-md'>
                 {renderPopover}
               </div>
             </Pop.Panel>

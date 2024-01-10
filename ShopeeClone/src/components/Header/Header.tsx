@@ -9,14 +9,14 @@ export default function Header() {
           <Popover
             className='flex items-center border-none text-white hover:text-gray-300'
             renderPopover={
-              <>
-                <a href='/' className='hover:text-orange justify-start'>
+              <div className='flex flex-col w-full px-4 justify-start space-y-2'>
+                <Link to='/' className='hover:text-orange'>
                   Tiếng Việt
-                </a>
-                <a href='/' className='hover:text-orange justify-start'>
+                </Link>
+                <Link to='/' className='hover:text-orange'>
                   Tiếng Anh
-                </a>
-              </>
+                </Link>
+              </div>
             }
           >
             <svg
@@ -49,14 +49,17 @@ export default function Header() {
           <Popover
             className='flex items-center border-none text-white hover:text-gray-300 ml-4'
             renderPopover={
-              <>
-                <a href='/' className='hover:text-orange justify-start'>
-                  Tiếng Việt
-                </a>
-                <a href='/' className='hover:text-orange justify-start'>
-                  Tiếng Anh
-                </a>
-              </>
+              <div className='flex flex-col w-full px-4 justify-start space-y-2'>
+                <Link to='/' className='hover:text-blue-500'>
+                  Tài khoản của tôi
+                </Link>
+                <Link to='/' className=' hover:text-blue-500'>
+                  Đơn mua
+                </Link>
+                <Link to='/register' className='hover:text-blue-500'>
+                  Đăng xuất
+                </Link>
+              </div>
             }
           >
             <svg
