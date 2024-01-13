@@ -115,8 +115,53 @@ export default function Header() {
               </button>
             </div>
           </form>
-          <div className='col-span-1 text-white'>
-            <Link to='/'>
+          <Popover
+            renderPopover={
+              <div className='max-w-[400px] text-sm flex flex-col w-full justify-start'>
+                <div className='p-2'>
+                  <div className='text-gray-400'>Sản phẩm mới thêm</div>
+                  <div className='flex mt-2'>
+                    <img
+                      className='flex-shrink-0 w-12 h-12 object-cover'
+                      src='https://i.pinimg.com/474x/2b/a1/da/2ba1da78b4d8c61dfc40f9471b12bf0c.jpg'
+                      alt='anh'
+                    />
+                    <p className='flex-grow ml-2 overflow-hidden truncate'>
+                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                    </p>
+                    <span className='ml-2 flex-shrink-0 text-orange'>đ69.690</span>
+                  </div>
+                  <div className='flex mt-2'>
+                    <img
+                      className='flex-shrink-0 w-12 h-12 object-cover'
+                      src='https://i.pinimg.com/474x/2b/a1/da/2ba1da78b4d8c61dfc40f9471b12bf0c.jpg'
+                      alt='anh'
+                    />
+                    <p className='flex-grow ml-2 overflow-hidden truncate'>
+                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                    </p>
+                    <span className='ml-2 flex-shrink-0 text-orange'>đ69.690</span>
+                  </div>
+                  <div className='flex mt-2'>
+                    <img
+                      className='flex-shrink-0 w-12 h-12 object-cover'
+                      src='https://i.pinimg.com/474x/2b/a1/da/2ba1da78b4d8c61dfc40f9471b12bf0c.jpg'
+                      alt='anh'
+                    />
+                    <p className='flex-grow ml-2 overflow-hidden truncate'>
+                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                    </p>
+                    <span className='ml-2 flex-shrink-0 text-orange'>đ69.690</span>
+                  </div>
+                  <div className='flex mt-6 justify-between'>
+                    <p className='text-gray-400'>69 thêm vào giỏ</p>
+                    <button className='px-3 py-2 bg-orange text-white'>Xem giỏ hàng</button>
+                  </div>
+                </div>
+              </div>
+            }
+          >
+            <div className='col-span-1 text-white'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'
@@ -131,8 +176,8 @@ export default function Header() {
                   d='M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z'
                 />
               </svg>
-            </Link>
-          </div>
+            </div>
+          </Popover>
         </div>
       </div>
     </div>
