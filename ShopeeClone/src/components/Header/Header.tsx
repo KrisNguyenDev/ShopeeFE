@@ -117,7 +117,7 @@ export default function Header() {
           </form>
           <Popover
             renderPopover={
-              <div className='max-w-[400px] text-sm flex flex-col w-full justify-start'>
+              <div className='max-w-[500px] text-sm flex flex-col w-full justify-start'>
                 <div className='p-2'>
                   <div className='text-gray-400'>Sản phẩm mới thêm</div>
                   <div className='flex mt-2'>
