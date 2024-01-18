@@ -2,8 +2,10 @@ import { Link } from 'react-router-dom'
 import Popover from '../Popover'
 
 export default function Header() {
+  const color = 'bg-[linear-gradient(-180deg,#f53d2d,#f63)]'
+  console.log(color)
   return (
-    <div className='pb-5 pt-2 bg-[linear-gradient(-180deg,#f53d2d,#f63)]'>
+    <div className='pb-5 pt-2 bg-[#54b947]'>
       <div className='container'>
         <div className='flex justify-end'>
           <Popover
@@ -49,8 +51,8 @@ export default function Header() {
           <Popover
             className='flex items-center border-none text-white hover:text-gray-300 ml-4'
             renderPopover={
-              <div className='flex flex-col w-full px-4 justify-start space-y-2'>
-                <Link to='/' className='hover:text-blue-500'>
+              <div className='w-52 flex flex-col px-4 justify-start space-y-2'>
+                <Link to='/profile' className='hover:text-blue-500'>
                   Tài khoản của tôi
                 </Link>
                 <Link to='/' className=' hover:text-blue-500'>
@@ -97,7 +99,7 @@ export default function Header() {
                 name='search'
                 className='text-black flex-grow border-none px-3 py-2 outline-none bg-transparent'
               ></input>
-              <button className='rounded-sm py-2 px-6 flex-shrink-0 bg-orange hover:opacity-90'>
+              <button className='rounded-sm py-2 px-6 flex-shrink-0 bg-[#54b947] hover:opacity-90'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
@@ -117,7 +119,7 @@ export default function Header() {
           </form>
           <Popover
             renderPopover={
-              <div className='max-w-[500px] text-sm flex flex-col w-full justify-start'>
+              <div className='max-w-[300px] text-sm flex flex-col justify-start'>
                 <div className='p-2'>
                   <div className='text-gray-400'>Sản phẩm mới thêm</div>
                   <div className='flex mt-2'>
