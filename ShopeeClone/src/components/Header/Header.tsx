@@ -1,11 +1,27 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Popover from '../Popover'
+// import { clearAccessToken } from 'src/utils/auth'
+import { useContext } from 'react'
+import { AppContext } from 'src/contexts/app.context'
+import { useMutation } from '@tanstack/react-query'
+import { logout } from 'src/apis/auth.api'
 
 export default function Header() {
-  const color = 'bg-[linear-gradient(-180deg,#f53d2d,#f63)]'
-  console.log(color)
+  const { setIsAuthenticated, isAuthenticated } = useContext(AppContext)
+  const navigate = useNavigate()
+  const logoutMutation = useMutation({
+    mutationFn: () => logout(),
+    onSuccess: () => {
+      setIsAuthenticated(false)
+      navigate('/login')
+    }
+  })
+
+  const handleLogout = () => {
+    logoutMutation.mutate()
+  }
   return (
-    <div className='pb-5 pt-2 bg-[#54b947]'>
+    <div className='pb-5 pt-2 bg-[linear-gradient(-180deg,#f53d2d,#f63)]'>
       <div className='container'>
         <div className='flex justify-end'>
           <Popover
@@ -58,7 +74,7 @@ export default function Header() {
                 <Link to='/' className=' hover:text-blue-500'>
                   Đơn mua
                 </Link>
-                <Link to='/register' className='hover:text-blue-500'>
+                <Link to='/login' onClick={handleLogout} className='hover:text-blue-500'>
                   Đăng xuất
                 </Link>
               </div>
@@ -80,6 +96,12 @@ export default function Header() {
             </svg>
             <span className='mx-1'>Mr. Kris</span>
           </Popover>
+
+          {isAuthenticated && (
+            <div className='flex items-center'>
+              <Link to='/register'>Đăng ký</Link>
+            </div>
+          )}
         </div>
         <div className='grid grid-cols-12 gap-4 items-center'>
           <Link to='/' className='col-span-2'>
@@ -99,7 +121,7 @@ export default function Header() {
                 name='search'
                 className='text-black flex-grow border-none px-3 py-2 outline-none bg-transparent'
               ></input>
-              <button className='rounded-sm py-2 px-6 flex-shrink-0 bg-[#54b947] hover:opacity-90'>
+              <button className='rounded-sm py-2 px-6 flex-shrink-0 bg-orange hover:opacity-90'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
