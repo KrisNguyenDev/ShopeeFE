@@ -1,7 +1,27 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Popover from '../Popover'
+// import { clearAccessToken } from 'src/utils/auth'
+import { useContext } from 'react'
+import { AppContext } from 'src/contexts/app.context'
+import { useMutation } from '@tanstack/react-query'
+import { logout } from 'src/apis/auth.api'
+import path from 'src/constants/path'
 
 export default function Header() {
+  const { setIsAuthenticated, isAuthenticated, setProfile, profile } = useContext(AppContext)
+  const navigate = useNavigate()
+  const logoutMutation = useMutation({
+    mutationFn: () => logout(),
+    onSuccess: () => {
+      setIsAuthenticated(false)
+      setProfile(null)
+      navigate('/login')
+    }
+  })
+
+  const handleLogout = () => {
+    logoutMutation.mutate()
+  }
   return (
     <div className='pb-5 pt-2 bg-[linear-gradient(-180deg,#f53d2d,#f63)]'>
       <div className='container'>
@@ -49,14 +69,14 @@ export default function Header() {
           <Popover
             className='flex items-center border-none text-white hover:text-gray-300 ml-4'
             renderPopover={
-              <div className='flex flex-col w-full px-4 justify-start space-y-2'>
-                <Link to='/' className='hover:text-blue-500'>
+              <div className='w-52 flex flex-col px-4 justify-start space-y-2'>
+                <Link to='/profile' className='hover:text-blue-500'>
                   Tài khoản của tôi
                 </Link>
                 <Link to='/' className=' hover:text-blue-500'>
                   Đơn mua
                 </Link>
-                <Link to='/register' className='hover:text-blue-500'>
+                <Link to='/login' onClick={handleLogout} className='hover:text-blue-500'>
                   Đăng xuất
                 </Link>
               </div>
@@ -76,8 +96,18 @@ export default function Header() {
                 d='M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z'
               />
             </svg>
-            <span className='mx-1'>Mr. Kris</span>
+            <span className='mx-1 items-center'>{profile?.email}</span>
           </Popover>
+          {!isAuthenticated && (
+            <div className='flex items-center py-1'>
+              <Link to={path.register} className='text-white hover:text-gray-300 ml-3'>
+                Đăng ký
+              </Link>
+              <Link to={path.login} className='text-white hover:text-gray-300 ml-3'>
+                Đăng nhập
+              </Link>
+            </div>
+          )}
         </div>
         <div className='grid grid-cols-12 gap-4 items-center'>
           <Link to='/' className='col-span-2'>
@@ -115,8 +145,53 @@ export default function Header() {
               </button>
             </div>
           </form>
-          <div className='col-span-1 text-white'>
-            <Link to='/'>
+          <Popover
+            renderPopover={
+              <div className='max-w-[300px] text-sm flex flex-col justify-start'>
+                <div className='p-2'>
+                  <div className='text-gray-400'>Sản phẩm mới thêm</div>
+                  <div className='flex mt-2'>
+                    <img
+                      className='flex-shrink-0 w-12 h-12 object-cover'
+                      src='https://i.pinimg.com/474x/2b/a1/da/2ba1da78b4d8c61dfc40f9471b12bf0c.jpg'
+                      alt='anh'
+                    />
+                    <p className='flex-grow ml-2 overflow-hidden truncate'>
+                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                    </p>
+                    <span className='ml-2 flex-shrink-0 text-orange'>đ69.690</span>
+                  </div>
+                  <div className='flex mt-2'>
+                    <img
+                      className='flex-shrink-0 w-12 h-12 object-cover'
+                      src='https://i.pinimg.com/474x/2b/a1/da/2ba1da78b4d8c61dfc40f9471b12bf0c.jpg'
+                      alt='anh'
+                    />
+                    <p className='flex-grow ml-2 overflow-hidden truncate'>
+                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                    </p>
+                    <span className='ml-2 flex-shrink-0 text-orange'>đ69.690</span>
+                  </div>
+                  <div className='flex mt-2'>
+                    <img
+                      className='flex-shrink-0 w-12 h-12 object-cover'
+                      src='https://i.pinimg.com/474x/2b/a1/da/2ba1da78b4d8c61dfc40f9471b12bf0c.jpg'
+                      alt='anh'
+                    />
+                    <p className='flex-grow ml-2 overflow-hidden truncate'>
+                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                    </p>
+                    <span className='ml-2 flex-shrink-0 text-orange'>đ69.690</span>
+                  </div>
+                  <div className='flex mt-6 justify-between'>
+                    <p className='text-gray-400'>69 thêm vào giỏ</p>
+                    <button className='px-3 py-2 bg-orange text-white'>Xem giỏ hàng</button>
+                  </div>
+                </div>
+              </div>
+            }
+          >
+            <div className='col-span-1 text-white'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'
@@ -131,8 +206,8 @@ export default function Header() {
                   d='M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z'
                 />
               </svg>
-            </Link>
-          </div>
+            </div>
+          </Popover>
         </div>
       </div>
     </div>
