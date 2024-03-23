@@ -1,4 +1,4 @@
-import AsideFilter from './AsideFolder'
+import AsideFilter from './AsideFilter'
 import Product from './Product'
 import SortProductList from './SortProductList'
 
