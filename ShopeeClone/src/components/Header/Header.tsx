@@ -24,7 +24,7 @@ export default function Header() {
   }
   //bg-[linear-gradient(-180deg,#f53d2d,#f63)]
   return (
-    <div className='pb-5 pt-2 bg-black'>
+    <div className='pb-5 pt-2 bg-[linear-gradient(-180deg,#f53d2d,#f63)]'>
       <div className='container'>
         <div className='flex justify-end'>
           <Popover
@@ -128,7 +128,7 @@ export default function Header() {
                 name='search'
                 className='text-black flex-grow border-none px-3 py-2 outline-none bg-transparent'
               ></input>
-              <button className='rounded-sm py-2 px-6 flex-shrink-0 bg-black hover:opacity-90'>
+              <button className='rounded-sm py-2 px-6 flex-shrink-0 bg-orange hover:opacity-90'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
